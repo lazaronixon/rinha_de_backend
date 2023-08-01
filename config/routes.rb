@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   resources :pessoas
+  get "contagem-pessoas" => "pessoas#contagem_pessoas"
 end

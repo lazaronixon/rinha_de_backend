@@ -9,6 +9,10 @@ class PessoasController < ApplicationController
     render json: @pessoa
   end
 
+  def contagem_pessoas
+    render plain: "#{Pessoa.count}"
+  end
+
   def create
     @pessoa = Pessoa.new(pessoa_params)
 
