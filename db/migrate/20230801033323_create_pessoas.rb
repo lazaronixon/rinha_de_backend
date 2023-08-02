@@ -5,7 +5,7 @@ class CreatePessoas < ActiveRecord::Migration[7.1]
       t.string :nome,       null: false
       t.date   :nascimento, null: false
 
-      t.string :stack, array: true
+      t.string :stack
 
       t.timestamps
     end

@@ -144,6 +144,9 @@ GEM
     nokogiri (1.15.3-x86_64-linux)
       racc (~> 1.4)
     pg (1.5.3)
+    pg_search (2.3.6)
+      activerecord (>= 5.2)
+      activesupport (>= 5.2)
     puma (6.3.0)
       nio4r (~> 2.0)
     racc (1.7.1)
@@ -184,6 +187,7 @@ DEPENDENCIES
   debug
   error_highlight (>= 0.4.0)
   pg (~> 1.1)
+  pg_search
   puma (>= 5.0)
   rails!
   tzinfo-data
