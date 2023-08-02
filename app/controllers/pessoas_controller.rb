@@ -14,7 +14,7 @@ class PessoasController < ApplicationController
   end
 
   def create
-    @pessoa = Pessoa.create!(pessoa_params); render(json: @pessoa, status: :created, location: pessoa_path(@pessoa))
+    pessoa = Pessoa.create!(pessoa_params); head(:created, location: pessoa_path(pessoa))
   end
 
   private
@@ -23,6 +23,6 @@ class PessoasController < ApplicationController
     end
 
     def pessoa_params
-      params.require(:pessoa).permit(:apelido, :nome, :nascimento, stack: [])
+      params.permit(:apelido, :nome, :nascimento, stack: [])
     end
 end
