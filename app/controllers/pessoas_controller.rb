@@ -1,12 +1,12 @@
 class PessoasController < ApplicationController
-  before_action :set_pessoa, only: %i[ show ]
+  before_action :set_pessoa, only: :show
 
   def index
     render json: Pessoa.search(params[:t]).first(50)
   end
 
   def show
-    render json: @pessoa
+    render(json: @pessoa) if stale?(@pessoa)
   end
 
   def contagem_pessoas
