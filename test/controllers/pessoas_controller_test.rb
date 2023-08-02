@@ -1,6 +1,11 @@
 require "test_helper"
 
 class PessoasControllerTest < ActionDispatch::IntegrationTest
+  test "should get contagem pessoas" do
+    get contagem_pessoas_url, as: :json
+    assert_response :success
+  end
+
   test "should get index" do
     get pessoas_url, as: :json
     assert_response :success
