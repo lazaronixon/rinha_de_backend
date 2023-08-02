@@ -15,8 +15,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_02_005121) do
   enable_extension "plpgsql"
 
   create_table "pessoas", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "apelido", null: false
-    t.string "nome", null: false
+    t.string "apelido", limit: 32, null: false
+    t.string "nome", limit: 100, null: false
     t.date "nascimento", null: false
     t.string "stack"
     t.datetime "created_at", null: false

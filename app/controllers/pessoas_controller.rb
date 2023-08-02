@@ -14,13 +14,7 @@ class PessoasController < ApplicationController
   end
 
   def create
-    @pessoa = Pessoa.new(pessoa_params)
-
-    if @pessoa.save
-      render json: @pessoa, status: :created, location: pessoa_path(@pessoa)
-    else
-      render json: @pessoa.errors, status: :unprocessable_entity
-    end
+    @pessoa = Pessoa.create!(pessoa_params); render(json: @pessoa, status: :created, location: pessoa_path(@pessoa))
   end
 
   private
