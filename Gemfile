@@ -37,6 +37,9 @@ gem "bootsnap", require: false
 
 gem "pg_search"
 
+gem "redis"
+gem "connection_pool"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
