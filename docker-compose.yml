@@ -9,6 +9,7 @@ services:
     expose:
       - '3000'
     environment:
+      WEB_CONCURRENCY: 0
       DATABASE_URL: postgres://postgres:password@db:5432/rinha_de_backend
       CACHE_URL: redis://cache:6379/0
       RAILS_MASTER_KEY: d2066c69964ffb8b091dfddc61f42880
@@ -16,8 +17,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.4'
-          memory: '1GB'
+          cpus: '0.25'
+          memory: '0.5GB'
 
   api2: # API - Instância 01
     image: lazaronixon/rinha-de-backend
@@ -28,6 +29,7 @@ services:
     expose:
       - '3000'
     environment:
+      WEB_CONCURRENCY: 0
       DATABASE_URL: postgres://postgres:password@db:5432/rinha_de_backend
       CACHE_URL: redis://cache:6379/0
       RAILS_MASTER_KEY: d2066c69964ffb8b091dfddc61f42880
@@ -35,8 +37,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.4'
-          memory: '1GB'
+          cpus: '0.25'
+          memory: '0.5GB'
 
   nginx: # Load Balancer
     image: nginx:latest
@@ -50,7 +52,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.1'
+          cpus: '0.15'
           memory: '0.2GB'
 
   db: # Banco de dados
@@ -61,8 +63,8 @@ services:
    deploy:
       resources:
         limits:
-          cpus: '0.5'
-          memory: '0.6GB'
+          cpus: '0.75'
+          memory: '1.6GB'
 
   cache: # Redis Cache
     image: redis
