@@ -8,8 +8,8 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Pessoa.delete_all
-
-(1..5000).each do |i|
-  Pessoa.create! apelido: "apelido-#{i}", nome: "nome-#{i}", nascimento: "2000-10-01", stack: %w[Ruby Delphi Node]
-end
+# Pessoa.delete_all
+#
+# (1..5000).each do |i|
+#   Pessoa.create! apelido: "apelido-#{i}", nome: "nome-#{i}", nascimento: "2000-10-01", stack: %w[Ruby Delphi Node]
+# end
