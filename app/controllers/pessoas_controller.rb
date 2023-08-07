@@ -2,7 +2,11 @@ class PessoasController < ApplicationController
   before_action :set_pessoa, only: :show
 
   def index
-    render json: Pessoa.search(params[:t]).limit(50)
+    if params.has_key?(:t)
+      render json: Pessoa.search(params[:t]).limit(50)
+    else
+      head :bad_request
+    end
   end
 
   def show

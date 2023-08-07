@@ -7,8 +7,13 @@ class PessoasControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get pessoas_url, as: :json
+    get pessoas_url(t: "node"), as: :json
     assert_response :success
+  end
+
+  test "should not get index without param" do
+    get pessoas_url, as: :json
+    assert_response :bad_request
   end
 
   test "should create pessoa" do
