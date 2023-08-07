@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby "3.2.2"
 
 # Use main development branch of Rails
-gem "rails", github: "rails/rails", branch: "main"
+gem "rails", github: "rails/rails", ref: "129fe98f4cc74be53c7d194ff2faf06d9b382c41"
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
