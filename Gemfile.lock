@@ -188,14 +188,13 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
-  connection_pool
   debug
   error_highlight (>= 0.4.0)
   pg (~> 1.1)
   pg_search
   puma (>= 5.0)
   rails!
-  redis
+  redis (>= 4.0.1)
   tzinfo-data
 
 RUBY VERSION
