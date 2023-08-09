@@ -5,10 +5,6 @@ class Pessoa < ApplicationRecord
 
   serialize :stack, type: Array, coder: JSON
 
-  def self.find_cached(id)
-    Rails.cache.fetch("v1/pessoas/#{id}") { find(id) }
-  end
-
   private
     def attribute_names_for_serialization
       %i[id apelido nome nascimento stack]

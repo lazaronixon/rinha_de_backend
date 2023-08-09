@@ -2,7 +2,7 @@ class PessoasController < ApplicationController
   before_action :set_pessoa, only: :show
 
   def index
-    if params[:t].present?
+    if params.has_key?(:t)
       render json: Pessoa.search(params[:t]).limit(50)
     else
       head :bad_request
@@ -23,7 +23,7 @@ class PessoasController < ApplicationController
 
   private
     def set_pessoa
-      @pessoa = Pessoa.find_cached(params[:id])
+      @pessoa = Pessoa.find(params[:id])
     end
 
     def pessoa_params
