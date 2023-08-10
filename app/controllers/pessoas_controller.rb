@@ -13,12 +13,12 @@ class PessoasController < ApplicationController
     render json: @pessoa
   end
 
-  def contagem_pessoas
-    render plain: Pessoa.count.to_s
-  end
-
   def create
     pessoa = Pessoa.create!(pessoa_params); head(:created, location: pessoa_path(pessoa))
+  end
+
+  def contagem_pessoas
+    render plain: Pessoa.count.to_s
   end
 
   private
