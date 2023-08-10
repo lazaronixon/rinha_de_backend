@@ -19,7 +19,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_02_005121) do
     t.string "nome", limit: 100, null: false
     t.date "nascimento", null: false
     t.string "stack"
-    t.virtual "searchable", type: :tsvector, as: "((to_tsvector('simple'::regconfig, (apelido)::text) || to_tsvector('simple'::regconfig, (nome)::text)) || to_tsvector('simple'::regconfig, (COALESCE(stack, ''::character varying))::text))", stored: true
+    t.virtual "searchable", type: :tsvector, as: "to_tsvector('simple'::regconfig, (((((apelido)::text || ' '::text) || (nome)::text) || ' '::text) || (COALESCE(stack, ''::character varying))::text))", stored: true
     t.index ["apelido"], name: "index_pessoas_on_apelido", unique: true
     t.index ["searchable"], name: "index_pessoas_on_searchable", using: :gin
   end
