@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.2.2"
+ruby "3.3.0.preview1"
 
 # Use main development branch of Rails
 gem "rails", github: "rails/rails", ref: "129fe98f4cc74be53c7d194ff2faf06d9b382c41"
@@ -34,9 +34,6 @@ gem "bootsnap", require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
-
-# PostgreSQL's full text search [https://github.com/Casecommons/pg_search]
-gem "pg_search"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
