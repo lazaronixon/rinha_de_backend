@@ -3,7 +3,7 @@ class Pessoa < ApplicationRecord
 
   serialize :stack, coder: JSON
 
-  scope :search, -> (value) { where("pessoas.searchable @@ plainto_tsquery(?)", value) }
+  scope :search, -> (value) { where("MATCH(apelido, nome, stack) AGAINST(? IN BOOLEAN MODE)", value) }
 
   validates :apelido,    presence: true, length: { maximum: 32  }
   validates :nome,       presence: true, length: { maximum: 100 }

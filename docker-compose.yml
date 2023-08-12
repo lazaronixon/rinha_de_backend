@@ -11,7 +11,7 @@ services:
       - '9999:3000'
     environment:
       RAILS_LOG_LEVEL: error
-      DATABASE_URL: postgres://postgres:password@db:5432/rinha_de_backend
+      DATABASE_URL: trilogy://root:password@db:3306/rinha_de_backend
       RAILS_MASTER_KEY: d2066c69964ffb8b091dfddc61f42880
       RUBY_YJIT_ENABLE: 1
     deploy:
@@ -21,10 +21,10 @@ services:
           memory: '2.0GB'
 
   db: # Banco de dados
-   image: postgres
+   image: mysql
+   command: --default-authentication-plugin=mysql_native_password
    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
    deploy:
       resources:
         limits:
@@ -33,9 +33,9 @@ services:
 
   db-migrator: # Database preparation
     image: lazaronixon/rinha-de-backend
-    command: bin/wait-for db:5432 -- bin/rails db:prepare
+    command: bin/wait-for --timeout=300 db:3306 -- bin/rails db:prepare
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://postgres:password@db:5432/rinha_de_backend
+      DATABASE_URL: trilogy://root:password@db:3306/rinha_de_backend
       RAILS_MASTER_KEY: d2066c69964ffb8b091dfddc61f42880

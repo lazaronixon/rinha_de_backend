@@ -5,8 +5,8 @@ ruby "3.3.0.preview1"
 # Use main development branch of Rails
 gem "rails", github: "rails/rails", ref: "129fe98f4cc74be53c7d194ff2faf06d9b382c41"
 
-# Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
+# Use mysql as the database for Active Record
+gem "trilogy", "~> 2.4"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"

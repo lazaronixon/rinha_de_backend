@@ -10,18 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_08_02_005121) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "pessoas", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+ActiveRecord::Schema[7.1].define(version: 2023_08_01_033323) do
+  create_table "pessoas", id: { type: :string, limit: 36 }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "apelido", limit: 32, null: false
     t.string "nome", limit: 100, null: false
     t.date "nascimento", null: false
     t.string "stack"
-    t.virtual "searchable", type: :tsvector, as: "to_tsvector('simple'::regconfig, (((((apelido)::text || ' '::text) || (nome)::text) || ' '::text) || (COALESCE(stack, ''::character varying))::text))", stored: true
+    t.index ["apelido", "nome", "stack"], name: "index_pessoas_on_apelido_and_nome_and_stack", type: :fulltext
     t.index ["apelido"], name: "index_pessoas_on_apelido", unique: true
-    t.index ["searchable"], name: "index_pessoas_on_searchable", using: :gin
   end
 
 end

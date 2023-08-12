@@ -143,7 +143,6 @@ GEM
     nokogiri (1.15.3)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    pg (1.5.3)
     puma (6.3.0)
       nio4r (~> 2.0)
     racc (1.7.1)
@@ -167,6 +166,7 @@ GEM
       io-console (~> 0.5)
     thor (1.2.2)
     timeout (0.4.0)
+    trilogy (2.4.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     webrick (1.8.1)
@@ -183,9 +183,9 @@ DEPENDENCIES
   bootsnap
   debug
   error_highlight (>= 0.4.0)
-  pg (~> 1.1)
   puma (>= 5.0)
   rails!
+  trilogy (~> 2.4)
   tzinfo-data
 
 RUBY VERSION
