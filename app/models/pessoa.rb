@@ -1,23 +1,22 @@
 class Pessoa < ApplicationRecord
   self.ignored_columns = %w[searchable]
 
-  serialize :stack, coder: JSON
+  serialize :stack, type: Array, coder: JSON
 
   scope :search, -> (value) { where("pessoas.searchable @@ plainto_tsquery(?)", value) }
 
   validates :apelido,    presence: true, length: { maximum: 32  }
   validates :nome,       presence: true, length: { maximum: 100 }
   validates :nascimento, presence: true
-  validates :stack,      presence: true, allow_nil: true
 
   validate :stack_must_contain_valid_elements
 
   private
     def stack_must_contain_valid_elements
-      errors.add(:stack, :invalid) unless stack&.all? { |item| stack_element?(item) }
+      errors.add(:stack, :invalid) unless stack.all? { |item| valid_stack_element?(item) }
     end
 
-    def stack_element?(item)
+    def valid_stack_element?(item)
       item.is_a?(String) && item.present? && item.size <= 32
     end
 end
