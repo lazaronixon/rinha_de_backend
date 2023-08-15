@@ -8,7 +8,7 @@ class PessoasController < ApplicationController
   end
 
   def show
-    pessoa = Pessoa.find(params[:id]); render(json: pessoa)
+    pessoa = Pessoa.find_cached(params[:id]); render(json: pessoa)
   end
 
   def create

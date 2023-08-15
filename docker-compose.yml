@@ -10,6 +10,7 @@ services:
     environment:
       RAILS_LOG_LEVEL: error
       DATABASE_URL: postgres://postgres:password@db:5432/rinha_de_backend
+      CACHE_URL: redis://cache:6379/0
       RAILS_MASTER_KEY: d2066c69964ffb8b091dfddc61f42880
       RUBY_YJIT_ENABLE: 1
     deploy:
@@ -28,6 +29,7 @@ services:
     environment:
       RAILS_LOG_LEVEL: error
       DATABASE_URL: postgres://postgres:password@db:5432/rinha_de_backend
+      CACHE_URL: redis://cache:6379/0
       RAILS_MASTER_KEY: d2066c69964ffb8b091dfddc61f42880
       RUBY_YJIT_ENABLE: 1
     deploy:
@@ -60,8 +62,17 @@ services:
    deploy:
       resources:
         limits:
-          cpus: '0.4'
-          memory: '0.8GB'
+          cpus: '0.3'
+          memory: '0.6GB'
+
+  cache: # Redis Cache
+      image: redis
+      command: redis-server --maxmemory 100mb --maxmemory-policy allkeys-lfu
+      deploy:
+        resources:
+          limits:
+            cpus: '0.1'
+            memory: '0.2GB'
 
   db-migrator: # Database preparation
     image: lazaronixon/rinha-de-backend
