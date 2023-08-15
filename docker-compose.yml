@@ -15,7 +15,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.475'
+          cpus: '0.45'
           memory: '1.0GB'
 
   api2: # API - Instância 02
@@ -33,7 +33,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.475'
+          cpus: '0.45'
           memory: '1.0GB'
 
   nginx: # Load Balancer
@@ -53,14 +53,14 @@ services:
 
   db: # Banco de dados
    image: postgres
-   command: postgres -c log_min_messages=FATAL
+   command: postgres -c fsync=off -c synchronous_commit=off -c full_page_writes=off -c log_min_messages=FATAL
    environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
    deploy:
       resources:
         limits:
-          cpus: '0.35'
+          cpus: '0.4'
           memory: '0.8GB'
 
   db-migrator: # Database preparation
