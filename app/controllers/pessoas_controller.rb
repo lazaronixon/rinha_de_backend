@@ -20,6 +20,6 @@ class PessoasController < ApplicationController
   end
 
   def pessoa_params
-    params.require(:pessoa).permit(:apelido, :nome, :nascimento, stack: [])
+    params.permit(:apelido, :nome, :nascimento, stack: [])
   end
 end

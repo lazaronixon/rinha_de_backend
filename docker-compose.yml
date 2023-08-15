@@ -15,8 +15,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
-          memory: '1GB'
+          cpus: '0.475'
+          memory: '1.0GB'
 
   api2: # API - Instância 02
     image: lazaronixon/rinha-de-backend
@@ -33,8 +33,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
-          memory: '1GB'
+          cpus: '0.475'
+          memory: '1.0GB'
 
   nginx: # Load Balancer
     image: nginx:latest
@@ -60,7 +60,7 @@ services:
    deploy:
       resources:
         limits:
-          cpus: '0.3'
+          cpus: '0.35'
           memory: '0.8GB'
 
   db-migrator: # Database preparation
