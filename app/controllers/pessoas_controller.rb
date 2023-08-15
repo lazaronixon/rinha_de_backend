@@ -8,11 +8,11 @@ class PessoasController < ApplicationController
   end
 
   def show
-    pessoa = Pessoa.find(params[:id]); render(json: pessoa)
+    pessoa = Pessoa.find_cached(params[:id]); render(json: pessoa)
   end
 
   def create
-    pessoa = Pessoa.create!(pessoa_params); head(:created, location: pessoa_path(pessoa))
+    pessoa = Pessoa.create_in_batch_later!(pessoa_params); head(:created, location: pessoa_path(pessoa))
   end
 
   def contagem_pessoas

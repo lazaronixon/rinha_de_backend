@@ -17,7 +17,7 @@ class PessoasControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create pessoa" do
-    assert_difference("Pessoa.count") do
+    assert_enqueued_with(job: PessoasCreatorJob) do
       post pessoas_url, params: { apelido: "nixon", nome: "Lázaro Nixon", nascimento: "1988-10-06", stack: %w(ruby) }, as: :json
     end
 

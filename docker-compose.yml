@@ -5,12 +5,15 @@ services:
     hostname: api1
     depends_on:
       - db
+      - cache
     expose:
       - '3000'
     environment:
       WEB_CONCURRENCY: 2
-      RAILS_LOG_LEVEL: warn
+      RAILS_LOG_LEVEL: error
       DATABASE_URL: postgres://postgres:password@db:5432/rinha_de_backend
+      CACHE_URL: redis://cache:6379/0
+      REDIS_URL: redis://cache:6379/1
       RAILS_MASTER_KEY: d2066c69964ffb8b091dfddc61f42880
       RUBY_YJIT_ENABLE: 1
     deploy:
@@ -24,12 +27,15 @@ services:
     hostname: api2
     depends_on:
       - db
+      - cache
     expose:
       - '3000'
     environment:
       WEB_CONCURRENCY: 2
-      RAILS_LOG_LEVEL: warn
+      RAILS_LOG_LEVEL: error
       DATABASE_URL: postgres://postgres:password@db:5432/rinha_de_backend
+      CACHE_URL: redis://cache:6379/0
+      REDIS_URL: redis://cache:6379/1
       RAILS_MASTER_KEY: d2066c69964ffb8b091dfddc61f42880
       RUBY_YJIT_ENABLE: 1
     deploy:
@@ -37,18 +43,6 @@ services:
         limits:
           cpus: '0.5'
           memory: '0.5GB'
-
-  db: # Banco de dados
-   image: postgres
-   command: postgres -c log_min_messages=FATAL
-   environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-   deploy:
-      resources:
-        limits:
-          cpus: '0.3'
-          memory: '1.5GB'
 
   nginx: # Load Balancer
     image: nginx:latest
@@ -63,7 +57,28 @@ services:
       resources:
         limits:
           cpus: '0.2'
-          memory: '0.5GB'
+          memory: '0.25GB'
+
+  db: # Banco de dados
+   image: postgres
+   command: postgres -c log_min_messages=FATAL
+   environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+   deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: '1.5GB'
+
+  cache: # Redis Cache
+    image: redis
+    command: redis-server --save "" --appendonly no --maxmemory 150mb --maxmemory-policy noeviction
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: '0.25GB'
 
   db-migrator: # Database preparation
     image: lazaronixon/rinha-de-backend

@@ -7,7 +7,7 @@
 # Any libraries that use thread pools should be configured to match
 # the maximum value specified for Puma. Default is set to 5 threads for minimum
 # and maximum; this matches the default thread size of Active Record.
-max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
+max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 4 }
 min_threads_count = ENV.fetch("RAILS_MIN_THREADS") { max_threads_count }
 threads min_threads_count, max_threads_count
 
@@ -32,3 +32,24 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
+
+if ENV["RAILS_ENV"] == "production"
+  # preloading the application is necessary to ensure
+  # the configuration in your initializer runs before
+  # the boot callback below.
+  preload_app!
+
+  x = nil
+  on_worker_boot do
+    x = Sidekiq.configure_embed do |config|
+      config.logger.level = Rails.logger.level
+      config.queues       = %w[critical default low]
+      config.concurrency  = 1
+    end
+    x.run
+  end
+
+  on_worker_shutdown do
+    x&.stop
+  end
+end
