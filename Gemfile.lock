@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 129fe98f4cc74be53c7d194ff2faf06d9b382c41
-  ref: 129fe98f4cc74be53c7d194ff2faf06d9b382c41
+  revision: 5cf742ef514b2184eb3d617e558c77f1bd6ceb11
+  ref: 5cf742ef514b2184eb3d617e558c77f1bd6ceb11
   specs:
     actioncable (7.1.0.alpha)
       actionpack (= 7.1.0.alpha)
@@ -67,10 +67,13 @@ GIT
       activesupport (= 7.1.0.alpha)
       marcel (~> 1.0)
     activesupport (7.1.0.alpha)
+      base64
       concurrent-ruby (~> 1.0, >= 1.0.2)
       connection_pool (>= 2.2.5)
+      drb
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
+      mutex_m
       tzinfo (~> 2.0)
     rails (7.1.0.alpha)
       actioncable (= 7.1.0.alpha)
@@ -98,6 +101,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    base64 (0.1.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     builder (3.2.4)
@@ -108,6 +112,8 @@ GEM
     debug (1.8.0)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
+    drb (2.1.1)
+      ruby2_keywords
     error_highlight (0.5.1)
     erubi (1.12.0)
     globalid (1.1.0)
@@ -126,10 +132,11 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.2)
-    mini_mime (1.1.2)
+    mini_mime (1.1.5)
     mini_portile2 (2.8.4)
     minitest (5.19.0)
     msgpack (1.7.2)
+    mutex_m (0.1.2)
     net-imap (0.3.7)
       date
       net-protocol
@@ -140,7 +147,7 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.9)
-    nokogiri (1.15.3)
+    nokogiri (1.15.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     pg (1.5.3)
@@ -165,6 +172,7 @@ GEM
     rake (13.0.6)
     reline (0.3.7)
       io-console (~> 0.5)
+    ruby2_keywords (0.0.5)
     thor (1.2.2)
     timeout (0.4.0)
     tzinfo (2.0.6)

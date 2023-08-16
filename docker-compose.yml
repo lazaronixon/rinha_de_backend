@@ -8,9 +8,9 @@ services:
     expose:
       - '3000'
     environment:
-      RAILS_LOG_LEVEL: error
       DATABASE_URL: postgres://postgres:password@db:5432/rinha_de_backend
       RAILS_MASTER_KEY: d2066c69964ffb8b091dfddc61f42880
+      RAILS_LOG_LEVEL: warn
       RUBY_YJIT_ENABLE: 1
     deploy:
       resources:
@@ -26,9 +26,9 @@ services:
     expose:
       - '3000'
     environment:
-      RAILS_LOG_LEVEL: error
       DATABASE_URL: postgres://postgres:password@db:5432/rinha_de_backend
       RAILS_MASTER_KEY: d2066c69964ffb8b091dfddc61f42880
+      RAILS_LOG_LEVEL: warn
       RUBY_YJIT_ENABLE: 1
     deploy:
       resources:
@@ -53,7 +53,7 @@ services:
 
   db: # Banco de dados
    image: postgres
-   command: postgres -c fsync=off -c synchronous_commit=off -c full_page_writes=off -c log_min_messages=FATAL
+   command: postgres -c log_min_messages=FATAL
    environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
