@@ -17,7 +17,7 @@ services:
       resources:
         limits:
           cpus: '0.5'
-          memory: '0.65GB'
+          memory: '0.75GB'
 
   api2: # API - Instância 02
     image: lazaronixon/rinha-de-backend
@@ -36,7 +36,7 @@ services:
       resources:
         limits:
           cpus: '0.5'
-          memory: '0.65GB'
+          memory: '0.75GB'
 
   nginx: # Load Balancer
     image: nginx:latest
@@ -63,7 +63,7 @@ services:
       resources:
         limits:
           cpus: '0.3'
-          memory: '1.5GB'
+          memory: '1.3GB'
 
   db-migrator: # Database preparation
     image: lazaronixon/rinha-de-backend

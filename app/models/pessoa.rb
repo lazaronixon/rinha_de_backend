@@ -1,7 +1,7 @@
 class Pessoa < ApplicationRecord
   self.ignored_columns = %w[searchable]
 
-  serialize :stack, type: Array, coder: JSON
+  serialize :stack, type: Array, coder: TagCoder
 
   scope :search, -> (value) { where("pessoas.searchable ILIKE ?", "%#{value}%") }
 
