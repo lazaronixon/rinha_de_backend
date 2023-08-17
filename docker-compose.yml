@@ -38,6 +38,18 @@ services:
           cpus: '0.5'
           memory: '0.5GB'
 
+  db: # Banco de dados
+   image: postgres
+   command: postgres -c log_min_messages=FATAL
+   environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+   deploy:
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: '1.5GB'
+
   nginx: # Load Balancer
     image: nginx:latest
     volumes:
@@ -50,20 +62,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.15'
+          cpus: '0.2'
           memory: '0.5GB'
-
-  db: # Banco de dados
-   image: postgres
-   command: postgres -c log_min_messages=FATAL
-   environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-   deploy:
-      resources:
-        limits:
-          cpus: '0.35'
-          memory: '1.5GB'
 
   db-migrator: # Database preparation
     image: lazaronixon/rinha-de-backend
