@@ -3,7 +3,7 @@ class Pessoa < ApplicationRecord
 
   serialize :stack, type: Array, coder: JSON
 
-  scope :search, -> (value) { where("pessoas.searchable @@ plainto_tsquery(?)", value) }
+  scope :search, -> (value) { where("pessoas.searchable ILIKE ?", "%#{value}%") }
 
   validates :apelido,    presence: true, length: { maximum: 32  }
   validates :nome,       presence: true, length: { maximum: 100 }

@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema[7.1].define(version: 2023_08_02_005121) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "pessoas", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -19,9 +20,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_02_005121) do
     t.string "nome", limit: 100, null: false
     t.date "nascimento", null: false
     t.string "stack"
-    t.virtual "searchable", type: :tsvector, as: "to_tsvector('simple'::regconfig, (((((apelido)::text || ' '::text) || (nome)::text) || ' '::text) || (COALESCE(stack, ''::character varying))::text))", stored: true
+    t.virtual "searchable", type: :text, as: "(((((nome)::text || ' '::text) || (apelido)::text) || ' '::text) || (COALESCE(stack, ''::character varying))::text)", stored: true
     t.index ["apelido"], name: "index_pessoas_on_apelido", unique: true
-    t.index ["searchable"], name: "index_pessoas_on_searchable", using: :gin
+    t.index ["searchable"], name: "index_pessoas_on_searchable", opclass: :gist_trgm_ops, using: :gist
   end
 
 end
