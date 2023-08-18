@@ -16,7 +16,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.45'
+          cpus: '0.5'
           memory: '0.5GB'
 
   api2: # API - Instância 02
@@ -35,7 +35,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.45'
+          cpus: '0.5'
           memory: '0.5GB'
 
   nginx: # Load Balancer
@@ -50,7 +50,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.2'
+          cpus: '0.15'
           memory: '0.5GB'
 
   db: # Banco de dados
@@ -62,7 +62,7 @@ services:
    deploy:
       resources:
         limits:
-          cpus: '0.4'
+          cpus: '0.35'
           memory: '1.5GB'
 
   db-migrator: # Database preparation
