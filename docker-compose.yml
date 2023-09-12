@@ -1,41 +1,43 @@
 version: '3.5'
 services:
   api1: # API - Instância 01
-    image: lazaronixon/rinha-de-backend
-    hostname: api1
+    # image: lazaronixon/rinha-de-backend
+    build: .
     depends_on:
       - db
-    expose:
-      - '3000'
+    network_mode: host
     environment:
       WEB_CONCURRENCY: 2
+      RAILS_MAX_THREADS: 30
       RAILS_LOG_LEVEL: warn
-      DATABASE_URL: postgres://postgres:password@db:5432/rinha_de_backend
+      DATABASE_URL: postgres://postgres:password@localhost:5432/rinha_de_backend
       RAILS_MASTER_KEY: d2066c69964ffb8b091dfddc61f42880
       RUBY_YJIT_ENABLE: 1
+      PORT: 3000
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: '0.4'
           memory: '0.5GB'
 
   api2: # API - Instância 02
-    image: lazaronixon/rinha-de-backend
-    hostname: api2
+    # image: lazaronixon/rinha-de-backend
+    build: .
     depends_on:
       - db
-    expose:
-      - '3000'
+    network_mode: host
     environment:
       WEB_CONCURRENCY: 2
+      RAILS_MAX_THREADS: 30
       RAILS_LOG_LEVEL: warn
-      DATABASE_URL: postgres://postgres:password@db:5432/rinha_de_backend
+      DATABASE_URL: postgres://postgres:password@localhost:5432/rinha_de_backend
       RAILS_MASTER_KEY: d2066c69964ffb8b091dfddc61f42880
       RUBY_YJIT_ENABLE: 1
+      PORT: 3001
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: '0.4'
           memory: '0.5GB'
 
   nginx: # Load Balancer
@@ -45,31 +47,48 @@ services:
     depends_on:
       - api1
       - api2
-    ports:
-      - "9999:9999"
+    network_mode: host
     deploy:
       resources:
         limits:
           cpus: '0.15'
-          memory: '0.5GB'
+          memory: '0.3GB'
 
   db: # Banco de dados
    image: postgres
-   command: postgres -c log_min_messages=FATAL
+   command: postgres -c config_file=/etc/postgresql/postgresql.conf
    environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
+   volumes:
+      - ./postgresql.conf:/etc/postgresql/postgresql.conf
+   network_mode: host
    deploy:
       resources:
         limits:
-          cpus: '0.35'
-          memory: '1.5GB'
+          cpus: '0.55'
+          memory: '1.7GB'
 
   db-migrator: # Database preparation
-    image: lazaronixon/rinha-de-backend
-    command: bin/wait-for db:5432 -- bin/rails db:prepare
+    # image: lazaronixon/rinha-de-backend
+    build: .
+    command: bin/wait-for localhost:5432 -- bin/rails db:prepare
+    network_mode: host
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://postgres:password@db:5432/rinha_de_backend
+      DATABASE_URL: postgres://postgres:password@localhost:5432/rinha_de_backend
       RAILS_MASTER_KEY: d2066c69964ffb8b091dfddc61f42880
+
+  pgadmin:
+    container_name: pgadmin
+    hostname: pgadmin
+    image: dpage/pgadmin4:7.6
+    # restart: unless-stopped
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_LISTEN_PORT=5050
+    depends_on:
+      - db
+    network_mode: "host"
