@@ -1,13 +1,14 @@
 version: '3.5'
 services:
   api1: # API - Instância 01
-    image: lazaronixon/rinha-de-backend
+    # image: lazaronixon/rinha-de-backend
+    build: .
     depends_on:
       - db
     network_mode: host
     environment:
       WEB_CONCURRENCY: 3
-      RAILS_MAX_THREADS: 60
+      RAILS_MAX_THREADS: 70
       RAILS_LOG_LEVEL: warn
       DATABASE_URL: postgres://postgres:password@localhost:5432/rinha_de_backend
       RAILS_MASTER_KEY: d2066c69964ffb8b091dfddc61f42880
@@ -20,13 +21,14 @@ services:
           memory: '0.5GB'
 
   api2: # API - Instância 02
-    image: lazaronixon/rinha-de-backend
+    # image: lazaronixon/rinha-de-backend
+    build: .
     depends_on:
       - db
     network_mode: host
     environment:
       WEB_CONCURRENCY: 3
-      RAILS_MAX_THREADS: 60
+      RAILS_MAX_THREADS: 70
       RAILS_LOG_LEVEL: warn
       DATABASE_URL: postgres://postgres:password@localhost:5432/rinha_de_backend
       RAILS_MASTER_KEY: d2066c69964ffb8b091dfddc61f42880
@@ -54,10 +56,12 @@ services:
 
   db: # Banco de dados
    image: postgres
-   command: postgres -c log_min_messages=FATAL -c max_connections=450
+   command: postgres -c config_file=/etc/postgresql/postgresql.conf
    environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
+   volumes:
+      - ./postgresql.conf:/etc/postgresql/postgresql.conf
    network_mode: host
    deploy:
       resources:
@@ -66,7 +70,8 @@ services:
           memory: '1.7GB'
 
   db-migrator: # Database preparation
-    image: lazaronixon/rinha-de-backend
+    # image: lazaronixon/rinha-de-backend
+    build: .
     command: bin/wait-for localhost:5432 -- bin/rails db:prepare
     network_mode: host
     depends_on:
