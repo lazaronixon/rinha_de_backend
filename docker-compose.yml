@@ -7,8 +7,8 @@ services:
       - db
     network_mode: host
     environment:
-      WEB_CONCURRENCY: 3
-      RAILS_MAX_THREADS: 70
+      WEB_CONCURRENCY: 2
+      RAILS_MAX_THREADS: 30
       RAILS_LOG_LEVEL: warn
       DATABASE_URL: postgres://postgres:password@localhost:5432/rinha_de_backend
       RAILS_MASTER_KEY: d2066c69964ffb8b091dfddc61f42880
@@ -27,8 +27,8 @@ services:
       - db
     network_mode: host
     environment:
-      WEB_CONCURRENCY: 3
-      RAILS_MAX_THREADS: 70
+      WEB_CONCURRENCY: 2
+      RAILS_MAX_THREADS: 30
       RAILS_LOG_LEVEL: warn
       DATABASE_URL: postgres://postgres:password@localhost:5432/rinha_de_backend
       RAILS_MASTER_KEY: d2066c69964ffb8b091dfddc61f42880
